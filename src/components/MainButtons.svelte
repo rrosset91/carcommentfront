@@ -6,8 +6,8 @@
     const dispatch = createEventDispatcher();
 
     function selectItem(typeName) {
-        dispatch('itemSelected', { type: typeName, name: 'Fusca', id: 1 });
+        dispatch('btnClicked', { type: typeName });
     }
 </script>
 
-<button class="btn btn-active btn-primary">Primary</button>
+<button class="btn" {disabled} on:click={() => selectItem(typeName)}>{typeName}</button>
