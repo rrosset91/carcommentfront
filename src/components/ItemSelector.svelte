@@ -1,60 +1,45 @@
 <script>
     export let data = [];
-    export let mockMode = false;
     export let type;
     let dataset = data;
     import { createEventDispatcher } from 'svelte';
     const dispatch = createEventDispatcher();
 
-    // Se mockMode for verdadeiro, use dados falsos para teste
-    if (mockMode) {
-        dataset = [
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            { name: 'Nissan', id: 1 },
-            // ... outros dados falsos ...
-        ];
-    }
-
     // Função para disparar o evento customizado ao clicar no botão
     function handleClick(item) {
+        let name = type === 'Ano' ? item : item.name;
         const customEvent = new CustomEvent('itemSelected', {
             detail: {
                 id: item.id,
-                name: item.name,
+                name: name,
                 selectionType: type,
             },
         });
-        console.log(customEvent);
         dispatch('itemSelected', customEvent);
     }
+    $: dataset = data;
 </script>
 
 <!-- HTML do componente -->
 <div class="container">
-    {#each dataset as item, index}
-        <div class="col">
-            <button class="btn secondary" on:click={() => handleClick(item)}>
-                {item.name}
-            </button>
-        </div>
-        {#if (index + 1) % 4 === 0}
-            <div style="flex-basis: 100%; height: 0;" />
-        {/if}
-    {/each}
+    {#if dataset.length === 0}
+        <img src="images/empty-icon.svg" width="200" alt="Empty-results" />
+    {:else}
+        {#each dataset as item, index}
+            <div class="col">
+                <button class="btn secondary" on:click={() => handleClick(item)}>
+                    {#if type === 'Ano'}
+                        {item}
+                    {:else}
+                        {item.name}
+                    {/if}
+                </button>
+            </div>
+            {#if (index + 1) % 4 === 0}
+                <div style="flex-basis: 100%; height: 0;" />
+            {/if}
+        {/each}
+    {/if}
 </div>
 
 <style>

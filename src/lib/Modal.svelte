@@ -2,15 +2,32 @@
 
 <script>
     import { fade } from 'svelte/transition';
-    export let isOpen = false;
+    import { createEventDispatcher } from 'svelte';
     export let close = () => {};
+    export let isOpen = false;
+    let filterValue = '';
+    const dispatch = createEventDispatcher();
+
+    function filterDataset() {
+        const customEvent = new CustomEvent('itemSelected', {
+            detail: {
+                value: filterValue,
+            },
+        });
+        dispatch('filter', customEvent);
+    }
+
+    function closeModal() {
+        close();
+    }
 </script>
 
 {#if isOpen}
-    <div class="modal" transition:fade={{ delay: 250, duration: 300 }}>
-        <div class="backdrop" on:click={close} />
-        <div class="content-wrapper">
+    <div on:click={closeModal} class="modal" transition:fade={{ delay: 250, duration: 300 }}>
+        <div class="content-wrapper" on:click={(e) => e.stopPropagation()}>
             <div class="modal-header">
+                <!-- Adicione o ícone de fechar (x) dentro do modal -->
+                <span class="close-icon" on:click={close}>❌</span>
                 <slot name="header" />
             </div>
             <div class="modal-content">
@@ -24,9 +41,9 @@
 {/if}
 
 <style>
-    /* ... (seu código anterior) ... */
-
-    /* Estilos para o modal */
+    @tailwind base;
+    @tailwind components;
+    @tailwind utilities;
     .modal {
         position: fixed;
         top: 0;
@@ -38,6 +55,7 @@
         justify-content: center;
         align-items: center;
         background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1;
     }
 
     .content-wrapper {
@@ -49,11 +67,28 @@
         display: flex;
         flex-direction: column; /* Alteração para empilhar elementos verticalmente */
         justify-content: space-between; /* Espaçamento entre header, content e footer */
+        position: relative; /* Adiciona posição relativa para posicionar o ícone corretamente */
+        z-index: 2;
     }
     .modal-content,
     .modal-header,
     .modal-footer {
         width: 100%;
+        margin-top: 20px;
         text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+    }
+
+    /* Estilos para o ícone de fechar (x) */
+    .close-icon {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+        font-size: 20px;
+        color: transparent;
+        text-shadow: 0 0 0 black;
     }
 </style>
