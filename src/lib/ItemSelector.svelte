@@ -27,7 +27,7 @@
     {:else}
         {#each dataset as item, index}
             <div class="col">
-                <button class="btn secondary" on:click={() => handleClick(item)}>
+                <button class="btn btn-info	" on:click={() => handleClick(item)}>
                     {#if type === 'Ano'}
                         {item}
                     {:else}
@@ -54,4 +54,8 @@
         margin: 5px;
         flex: 0 0 calc(25% - 10px); /* Define a largura para 25% com margens */
     }
+	button{
+		color: white;
+	}
 </style>
+

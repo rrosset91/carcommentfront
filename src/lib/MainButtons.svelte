@@ -10,4 +10,4 @@
     }
 </script>
 
-<button class="btn" {disabled} on:click={() => selectItem(typeName)}>{typeName}</button>
+<button class="btn btn-primary" {disabled} on:click={() => selectItem(typeName)}>{typeName}</button>

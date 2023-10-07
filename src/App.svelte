@@ -241,7 +241,7 @@
                             selectedYear.toString()}
                     </h3>
                     <button
-                        class="btn secondary"
+                        class="btn btn-secondary"
                         on:click={() => {
                             showResults = true;
                             displayNavBar = !showResults;
@@ -324,6 +324,7 @@
     .centered-content {
         text-align: center;
         margin-top: 20px;
+		border-radius: 5px;
     }
 
     .details {
@@ -341,3 +342,14 @@
         box-sizing: border-box;
     }
 </style>
+
+
+<!-- To dos:
+Revisar estilos da pagina result usando bootstrap
+refazer o navbar usando bootstrap
+isloggedin, implementar corretamente
+implementar localstorage e sessionstorage
+responsividade 
+Implementar página meu perfil
+
+-->

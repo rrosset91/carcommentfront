@@ -44,9 +44,6 @@
 {/if}
 
 <style>
-    @tailwind base;
-    @tailwind components;
-    @tailwind utilities;
     .modal {
         position: fixed;
         top: 0;
@@ -62,6 +59,7 @@
     }
 
     .content-wrapper {
+		overflow-y: auto;
         background-color: white;
         padding: 1em;
         border-radius: 0.3em;
@@ -72,6 +70,23 @@
         justify-content: space-between; /* Espaçamento entre header, content e footer */
         position: relative; /* Adiciona posição relativa para posicionar o ícone corretamente */
         z-index: 2;
+		overflow-y: scroll;
+        scrollbar-width: thin; /* Firefox */
+        scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */
+
+        /* Estilizar a barra de rolagem no Chrome/Safari */
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(0, 0, 0, 0.2);
+            border-radius: 4px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background-color: transparent;
+        }
     }
     .modal-content,
     .modal-header,
