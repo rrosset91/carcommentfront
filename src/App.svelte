@@ -1,14 +1,18 @@
 <script>
-    import MainButtons from './components/MainButtons.svelte';
+    import MainButtons from './lib/MainButtons.svelte';
     import Modal from './lib/Modal.svelte';
-    import Pagination from './components/Pagination.svelte';
-    import ItemSelector from './components/ItemSelector.svelte';
+    import Pagination from './lib/Pagination.svelte';
+    import ItemSelector from './lib/ItemSelector.svelte';
     import { mockResponses } from './assets/mockResponses.js';
     import { fade } from 'svelte/transition';
     import Loader from './lib/Loader.svelte';
     import Result from './Result.svelte';
+    import Navbar from './lib/Navbar.svelte';
+    import { onMount } from 'svelte';
+    let displayNavBar = false;
     let showResults = false;
     let mockMode = true;
+    let isUserLogged = false;
     let isLoading = false;
     let selectedBrand = {};
     let selectedModel = {};
@@ -18,6 +22,8 @@
     let yearDisabled = true;
     let showDetails = false;
     let openModal = false;
+    let openAboutModal = false;
+    let openLoginModal = false;
     let selectedItemId;
     let selectedItemName;
     let selectionType;
@@ -28,9 +34,22 @@
     let itemsPerPage = 20;
     let currentPage = 1;
     let lastPage;
+
+    onMount(() => {
+        setTimeout(() => {
+            displayNavBar = true;
+        }, 1500);
+    });
+
     function closeModal() {
         filterValue = '';
         openModal = false;
+    }
+    function closeAboutModal() {
+        openAboutModal = false;
+    }
+    function closeLoginModal() {
+        openLoginModal = false;
     }
 
     function filterDataset() {
@@ -49,6 +68,41 @@
             (currentPage - 1) * itemsPerPage,
             currentPage * itemsPerPage,
         );
+    }
+
+    function refreshAppState() {
+        setTimeout(() => {
+            displayNavBar = true;
+        }, 1500);
+        showResults = false;
+        selectedBrand = {};
+        selectedModel = {};
+        selectedYear = null;
+        brandDisabled = false;
+        modelDisabled = true;
+        yearDisabled = true;
+        showDetails = false;
+        openModal = false;
+        selectedItemId = null;
+        selectedItemName = null;
+        selectionType = null;
+    }
+
+    function handleOpenModalFromNavbar(e) {
+        switch (e.detail) {
+            case 'about':
+                openAboutModal = true;
+                break;
+            case 'login':
+                openLoginModal = true;
+                break;
+            case 'my-profile':
+                isUserLogged = true;
+                openLoginModal = true;
+                break;
+            default:
+                break;
+        }
     }
 
     function handleItemSelected(event) {
@@ -129,10 +183,6 @@
         }
     }
 
-    function navigateToResultPage() {
-        console.log('clicou');
-    }
-
     function watcher(data) {
         pages = Math.ceil(data.length / itemsPerPage);
         lastPage = pages;
@@ -144,7 +194,14 @@
     }
 </script>
 
-<main>
+<main translate="no" transition:fade={{ delay: 150, duration: 600 }}>
+    {#if !isLoading}
+        <Navbar
+            on:openModal={handleOpenModalFromNavbar}
+            on:refreshApp={refreshAppState}
+            display={displayNavBar}
+        />
+    {/if}
     {#if isLoading}
         <Loader />
     {:else if !showResults}
@@ -185,10 +242,12 @@
                         class="btn secondary"
                         on:click={() => {
                             showResults = true;
+                            displayNavBar = !showResults;
                         }}>O que dizem?</button
                     >
                 </div>
             {/if}
+            <!-- ITEMS SELECTION MODAL -->
             <Modal on:filter={filterDataset} isOpen={openModal} close={closeModal}>
                 <div slot="header">
                     <input
@@ -219,9 +278,51 @@
                     {/if}
                 </div>
             </Modal>
+            <!-- ABOUT MODAL -->
+            <Modal isOpen={openAboutModal} close={closeAboutModal}>
+                <div slot="header">
+                    <h3>Sobre</h3>
+                </div>
+                <div slot="content">
+                    Commodo nostrud voluptate tempor ut adipisicing elit nisi aliqua sit ut. Fugiat
+                    mollit aliqua sint culpa dolore nostrud ut deserunt tempor elit dolor anim ex
+                    do. Nulla proident enim duis et do laborum amet ad est ullamco pariatur dolor
+                    cillum. Aliquip ea est sint in Lorem adipisicing proident id tempor quis aliqua
+                    cillum commodo nostrud.
+                </div>
+            </Modal>
+            <!-- LOGIN MODAL -->
+            <Modal isOpen={openLoginModal} close={closeLoginModal}>
+                <div slot="header">
+                    {#if isUserLogged}
+                        <h3>Meu Perfil</h3>
+                    {:else}
+                        <h3>Entrar</h3>
+                    {/if}
+                </div>
+                <div slot="content">
+                    {#if isUserLogged}
+                        <div>
+                            <img src="images/avatar.svg" alt="Foto do usuário" />
+                            <h3>Nome do usuário</h3>
+                            <p>
+                                Commodo nostrud voluptate tempor ut adipisicing elit nisi aliqua sit
+                                ut. Fugiat mollit aliqua sint culpa dolore nostrud ut deserunt
+                                tempor elit
+                            </p>
+                        </div>
+                    {:else}
+                        <div>
+                            <input type="text" placeholder="Usuário" />
+                            <input type="text" placeholder="Senha" />
+                            <button class="btn primary">Entrar</button>
+                        </div>
+                    {/if}
+                </div>
+            </Modal>
         </div>
     {:else}
-        <Result />
+        <Result on:refreshApp={refreshAppState} />
     {/if}
 </main>
 

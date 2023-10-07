@@ -1,6 +1,5 @@
 <script>
     export let review = {};
-    import NewOpinion from './NewOpinion.svelte';
     let userId = '123123';
     let mockMode = true;
     let alreadyVotedUp = false;
@@ -119,7 +118,7 @@
                 <p class="value">{review.ownershipDuration}</p>
             </div>
             <div class="rating-item">
-                <p class="label">É o carro atual?</p>
+                <p class="label">Carro atual?</p>
                 <p class="value">{review.isCurrentCar ? 'Sim' : 'Não'}</p>
             </div>
             <div class="rating-item">
@@ -151,7 +150,6 @@
             {/if}
         </div>
     </div>
-    <NewOpinion />
 </main>
 
 <style>

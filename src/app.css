@@ -30,6 +30,8 @@
 	margin: 0;
 	min-width: 320px;
 	position: relative;
+	height: 100vh;
+	overflow: hidden;
 }
 
 #app {

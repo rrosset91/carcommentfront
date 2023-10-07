@@ -2,6 +2,15 @@
     import CarCard from './lib/CarCard.svelte';
     import CommentCard from './lib/CommentCard.svelte';
     import { fly } from 'svelte/transition';
+    import FloatingButton from './lib/FloatingButton.svelte';
+    import { createEventDispatcher } from 'svelte';
+    const dispatch = createEventDispatcher();
+
+    function handleFloatingBtnClick(e) {
+        if (e.detail.label === 'Nova Busca') {
+            dispatch('refreshApp');
+        }
+    }
 </script>
 
 <main>
@@ -15,6 +24,17 @@
             <CommentCard /><CommentCard /><CommentCard /><CommentCard />
         </div>
     </div>
+    <FloatingButton
+        on:floatingBtnClick={handleFloatingBtnClick}
+        animated={true}
+        label="Comentar"
+        delay="3000"
+    />
+    <FloatingButton
+        on:floatingBtnClick={handleFloatingBtnClick}
+        label="Nova Busca"
+        position="center top"
+    />
 </main>
 
 <style>
