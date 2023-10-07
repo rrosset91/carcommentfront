@@ -1,16 +1,36 @@
 <script>
     import CarCard from './lib/CarCard.svelte';
     import CommentCard from './lib/CommentCard.svelte';
+	import NewReviewForm from './lib/NewReviewForm.svelte';
     import { fly } from 'svelte/transition';
     import FloatingButton from './lib/FloatingButton.svelte';
     import { createEventDispatcher } from 'svelte';
+	import Modal from './lib/Modal.svelte';
+	let reviewModalOpen = false;
+	let currentCar = {
+		brand: 'Fiat',
+		model: 'Palio',
+		year: '2010'}
     const dispatch = createEventDispatcher();
 
     function handleFloatingBtnClick(e) {
         if (e.detail.label === 'Nova Busca') {
             dispatch('refreshApp');
         }
+		if (e.detail.label === 'Avaliar') {
+			openNewCommentModal();
+		}
     }
+
+	function closeNewCommentModal() {
+		reviewModalOpen = false;
+	}
+
+	function openNewCommentModal() {
+		reviewModalOpen = true;
+	}
+
+
 </script>
 
 <main>
@@ -27,7 +47,7 @@
     <FloatingButton
         on:floatingBtnClick={handleFloatingBtnClick}
         animated={true}
-        label="Comentar"
+        label="Avaliar"
         delay="3000"
     />
     <FloatingButton
@@ -35,6 +55,16 @@
         label="Nova Busca"
         position="center top"
     />
+
+	<!-- New Review MODAL -->
+	<Modal flex={false} textAlign="none" isOpen={reviewModalOpen} close={closeNewCommentModal}>
+		<div slot="header">
+			<h2 style="color: #4900B7">Nova avaliação: {currentCar.brand} {currentCar.model} {currentCar.year} </h2>
+		</div>
+		<div slot="content">
+			<NewReviewForm />
+		</div>
+	</Modal>
 </main>
 
 <style>
