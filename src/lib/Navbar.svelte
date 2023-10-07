@@ -1,7 +1,7 @@
 <script>
     export let display = true;
     let style = display ? 'block' : 'hidden';
-    let isUserLogged = true;
+    let isUserLogged = false;
     let loginLabel = isUserLogged ? 'Meu Perfil' : 'Entrar';
     import { fly } from 'svelte/transition';
     import { createEventDispatcher } from 'svelte';

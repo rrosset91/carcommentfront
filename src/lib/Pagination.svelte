@@ -38,16 +38,16 @@
 
 <main>
     <div class="pages">
-        <span class="arrow" on:click={handleFirst}>🢀</span>
-        <span class="arrow" on:click={handlePreview}>🡨</span>
+        <span class="arrow" on:click={handleFirst}>◄</span>
+        <span class="arrow" on:click={handlePreview}>←</span>
         {#each { length: pages } as _, i}
             <span
                 on:click={handleNavigate}
                 class={i + 1 === activePage ? 'active normal' : 'normal'}>{i + 1}</span
             >
         {/each}
-        <span class="arrow" on:click={handleNext}>🡪</span>
-        <span class="arrow" on:click={handleLast}>🢂</span>
+        <span class="arrow" on:click={handleNext}>→</span>
+        <span class="arrow" on:click={handleLast}>►</span>
     </div>
 </main>
 

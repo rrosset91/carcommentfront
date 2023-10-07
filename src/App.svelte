@@ -2,8 +2,10 @@
     import MainButtons from './lib/MainButtons.svelte';
     import Modal from './lib/Modal.svelte';
     import Pagination from './lib/Pagination.svelte';
+	import About from './lib/About.svelte';
     import ItemSelector from './lib/ItemSelector.svelte';
     import { mockResponses } from './assets/mockResponses.js';
+	import LoginRegistration from './lib/LoginRegistration.svelte';
     import { fade } from 'svelte/transition';
     import Loader from './lib/Loader.svelte';
     import Result from './Result.svelte';
@@ -280,16 +282,12 @@
             </Modal>
             <!-- ABOUT MODAL -->
             <Modal isOpen={openAboutModal} close={closeAboutModal}>
-                <div slot="header">
-                    <h3>Sobre</h3>
-                </div>
-                <div slot="content">
-                    Commodo nostrud voluptate tempor ut adipisicing elit nisi aliqua sit ut. Fugiat
-                    mollit aliqua sint culpa dolore nostrud ut deserunt tempor elit dolor anim ex
-                    do. Nulla proident enim duis et do laborum amet ad est ullamco pariatur dolor
-                    cillum. Aliquip ea est sint in Lorem adipisicing proident id tempor quis aliqua
-                    cillum commodo nostrud.
-                </div>
+				<div slot="header">
+					<h3>Sobre</h3>
+				</div>
+				<div slot="content">
+                <About/>
+				</div>
             </Modal>
             <!-- LOGIN MODAL -->
             <Modal isOpen={openLoginModal} close={closeLoginModal}>
@@ -301,23 +299,7 @@
                     {/if}
                 </div>
                 <div slot="content">
-                    {#if isUserLogged}
-                        <div>
-                            <img src="images/avatar.svg" alt="Foto do usuário" />
-                            <h3>Nome do usuário</h3>
-                            <p>
-                                Commodo nostrud voluptate tempor ut adipisicing elit nisi aliqua sit
-                                ut. Fugiat mollit aliqua sint culpa dolore nostrud ut deserunt
-                                tempor elit
-                            </p>
-                        </div>
-                    {:else}
-                        <div>
-                            <input type="text" placeholder="Usuário" />
-                            <input type="text" placeholder="Senha" />
-                            <button class="btn primary">Entrar</button>
-                        </div>
-                    {/if}
+					<LoginRegistration/>
                 </div>
             </Modal>
         </div>
