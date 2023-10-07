@@ -345,11 +345,13 @@
 
 
 <!-- To dos:
+	bug do dataset (pagina muda	)
+	paginacao continua aparecendo mesmo quando nao ha resultados
 Revisar estilos da pagina result usando bootstrap
 refazer o navbar usando bootstrap
 isloggedin, implementar corretamente
 implementar localstorage e sessionstorage
 responsividade 
 Implementar página meu perfil
-
+repensar o logo
 -->
