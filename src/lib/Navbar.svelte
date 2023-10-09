@@ -10,166 +10,132 @@
 
 {#if display}
     <main>
-        <div class="nav" {style} transition:fly={{ y: -50, duration: 500 }}>
-            <input type="checkbox" id="nav-check" />
-            <div class="nav-header">
-                <div class="nav-title">
-                    <i
-                        on:click={() => {
-                            dispatch('refreshApp');
-                        }}
-                        class="fa-solid fa-car"
-                    />
-                </div>
-            </div>
-            <div class="nav-btn">
-                <label for="nav-check">
-                    <span />
-                    <span />
-                    <span />
-                </label>
-            </div>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <!-- Container wrapper -->
+            <div class="container-fluid">
+                <!-- Toggle button -->
+                <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-mdb-toggle="collapse"
+                    data-mdb-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <i class="fas fa-bars" />
+                </button>
 
-            <div class="nav-links">
-                <a
-                    on:click={() => {
-                        dispatch('openModal', 'about');
-                    }}>Sobre</a
-                >
-                <a
-                    on:click={() => {
-                        dispatch('openModal', isUserLogged ? 'my-profile' : 'login');
-                    }}>{loginLabel}</a
-                >
-                <img
-                    src="images/avatar.svg"
-                    alt="Foto do usuário"
-                    on:click={() => {
-                        dispatch('openModal', isUserLogged ? 'my-profile' : 'login');
-                    }}
-                />
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <a class="navbar-brand mt-2 mt-lg-0" href="#">
+                        <img
+                            src="images/favicon.svg"
+                            height="30"
+                            alt="Carro Comentario Logo"
+                            loading="lazy"
+                            on:click={() => {
+                                dispatch('refreshApp');
+                            }}
+                        />
+                    </a>
+                    <!-- Left links -->
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#"
+                                on:click={() => {
+                                    dispatch('openModal', 'about');
+                                }}>Sobre</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#"
+                                on:click={() => {
+                                    dispatch('openModal', 'about');
+                                }}>Sobre</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#"
+                                on:click={() => {
+                                    dispatch('openModal', 'about');
+                                }}>Sobre</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#"
+                                on:click={() => {
+                                    dispatch('openModal', 'about');
+                                }}>Sobre</a
+                            >
+                        </li>
+                        <li class="nav-item">
+                            <a
+                                class="nav-link"
+                                href="#"
+                                on:click={() => {
+                                    dispatch('openModal', 'about');
+                                }}>Sobre</a
+                            >
+                        </li>
+                    </ul>
+                    <!-- Left links -->
+                </div>
+                <!-- Collapsible wrapper -->
+
+                <!-- Right elements -->
+                <div class="d-flex align-items-center">
+                    <!-- Avatar -->
+                    <div class="dropdown">
+                        <a
+                            class="dropdown-toggle d-flex align-items-center hidden-arrow"
+                            href="#"
+                            id="navbarDropdownMenuAvatar"
+                            role="button"
+                            data-mdb-toggle="dropdown"
+                            aria-expanded="false"
+                        >
+                            <img
+                                src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp"
+                                class="rounded-circle"
+                                height="25"
+                                alt="Black and White Portrait of a Man"
+                                loading="lazy"
+                            />
+                        </a>
+
+                        <ul
+                            class="dropdown-menu dropdown-menu-end"
+                            aria-labelledby="navbarDropdownMenuAvatar"
+                        >
+                            <li>
+                                <a
+                                    class="dropdown-item"
+                                    href="#"
+                                    on:click={() => {
+                                        dispatch(
+                                            'openModal',
+                                            isUserLogged ? 'my-profile' : 'login',
+                                        );
+                                    }}>{loginLabel}</a
+                                >
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="#">Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- Right elements -->
             </div>
-        </div>
+            <!-- Container wrapper -->
+        </nav>
     </main>
 {/if}
-
-<style>
-    img {
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        vertical-align: middle;
-    }
-    img:hover {
-        cursor: pointer;
-        width: 35px;
-        height: 35px;
-    }
-    main {
-        width: 100%;
-        padding: 10px;
-    }
-    * {
-        box-sizing: border-box;
-    }
-
-    .nav {
-        border-radius: 10px;
-        padding-left: 20px;
-        padding-right: 20px;
-        height: 50px;
-        width: 100%;
-        background-color: #333333;
-        position: relative;
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
-        color: white;
-    }
-
-    .nav > .nav-header {
-        display: inline;
-    }
-
-    .nav > .nav-header > .nav-title {
-        display: inline-block;
-        font-size: 22px;
-        color: #000;
-        padding: 10px 10px 10px 10px;
-    }
-
-    .nav > .nav-btn {
-        display: none;
-    }
-
-    .nav > .nav-links {
-        display: inline;
-        float: right;
-        font-size: 18px;
-    }
-
-    .nav > .nav-links > a {
-        display: inline-block;
-        padding: 13px 10px 13px 10px;
-        text-decoration: none;
-        color: #fff;
-    }
-
-    .nav > .nav-links > a:hover,
-    i:hover {
-        color: rgb(202, 29, 255);
-        cursor: pointer;
-    }
-
-    .nav > #nav-check {
-        display: none;
-    }
-    i {
-        color: white;
-    }
-
-    @media (max-width: 600px) {
-        .nav > .nav-btn {
-            display: inline-block;
-            position: absolute;
-            right: 0px;
-            top: 0px;
-        }
-        .nav > .nav-btn > label {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            padding: 13px;
-        }
-        .nav > .nav-btn > label:hover,
-        .nav #nav-check:checked ~ .nav-btn > label {
-            background-color: rgba(0, 0, 0, 0.3);
-        }
-        .nav > .nav-btn > label > span {
-            display: block;
-            width: 25px;
-            height: 10px;
-            border-top: 2px solid #eee;
-        }
-        .nav > .nav-links {
-            position: absolute;
-            display: block;
-            width: 100%;
-            background-color: #333;
-            height: 0px;
-            transition: all 0.3s ease-in;
-            overflow-y: hidden;
-            top: 50px;
-            left: 0px;
-        }
-        .nav > .nav-links > a {
-            display: block;
-            width: 100%;
-        }
-        .nav > #nav-check:not(:checked) ~ .nav-links {
-            height: 0px;
-        }
-        .nav > #nav-check:checked ~ .nav-links {
-            height: calc(100vh - 50px);
-            overflow-y: auto;
-        }
-    }
-</style>

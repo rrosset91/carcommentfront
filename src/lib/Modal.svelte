@@ -3,11 +3,11 @@
 <script>
     import { fade } from 'svelte/transition';
     import { createEventDispatcher } from 'svelte';
-	export let textAlign = 'center';
+    export let textAlign = 'center';
     export let close = () => {};
     export let isOpen = false;
-	export let flex = true;
-	let flexClass = flex? 'flex' : '';
+    export let flex = true;
+    let flexClass = flex ? 'flex' : '';
     let filterValue = '';
     const dispatch = createEventDispatcher();
 
@@ -59,7 +59,7 @@
     }
 
     .content-wrapper {
-		overflow-y: auto;
+        overflow-y: auto;
         background-color: white;
         padding: 1em;
         border-radius: 0.3em;
@@ -70,7 +70,7 @@
         justify-content: space-between; /* Espaçamento entre header, content e footer */
         position: relative; /* Adiciona posição relativa para posicionar o ícone corretamente */
         z-index: 2;
-		overflow-y: scroll;
+        overflow-y: scroll;
         scrollbar-width: thin; /* Firefox */
         scrollbar-color: rgba(0, 0, 0, 0.2) transparent; /* Firefox */
 
@@ -91,16 +91,16 @@
     .modal-content,
     .modal-header,
     .modal-footer {
-		border: none;
+        border: none;
         width: 100%;
         margin-top: 20px;
     }
 
-	.flex{
-		justify-content: center;
+    .flex {
+        justify-content: center;
         align-items: center;
         display: flex;
-	}
+    }
 
     /* Estilos para o ícone de fechar (x) */
     .close-icon {

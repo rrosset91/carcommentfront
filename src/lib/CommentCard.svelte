@@ -67,8 +67,8 @@
     }
 </script>
 
-<main>
-    <div class="review-card">
+<div class="col-sm-6">
+    <div class="card hover-shadow">
         <div class="review-header">
             <div class="user-info">
                 <p>Em {review.date} {review.userName} disse</p>
@@ -89,46 +89,55 @@
             <div class="owner-info" />
         </div>
         <div class="ratings">
-            <div class="rating-item">
-                <p class="label">Geral</p>
-                <p class="value">{review.ratings.overall}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Conforto</p>
-                <p class="value">{review.ratings.comfort}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Manutenção</p>
-                <p class="value">{review.ratings.maintenance}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Fiabilidade</p>
-                <p class="value">{review.ratings.reliability}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Consumo</p>
-                <p class="value">{review.ratings.fuelConsumption}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Desempenho</p>
-                <p class="value">{review.ratings.performance}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">{review.isCurrentCar ? 'Proprietário a' : 'Proprietário por'}</p>
-                <p class="value">{review.ownershipDuration}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Carro atual?</p>
-                <p class="value">{review.isCurrentCar ? 'Sim' : 'Não'}</p>
-            </div>
-            <div class="rating-item">
-                <p class="label">Recomenda</p>
-                <p class="value">{review.recommendation ? 'Sim' : 'Não'}</p>
+            <div class="container">
+                <div class="row">
+                    <div class="rating-item">
+                        <p class="label">Geral</p>
+                        <p class="value">{review.ratings.overall}</p>
+                    </div>
+                    <div class="rating-item">
+                        <p class="label">Conforto</p>
+                        <p class="value">{review.ratings.comfort}</p>
+                    </div>
+                    <div class="rating-item">
+                        <p class="label">Manutenção</p>
+                        <p class="value">{review.ratings.maintenance}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="rating-item">
+                        <p class="label">Fiabilidade</p>
+                        <p class="value">{review.ratings.reliability}</p>
+                    </div>
+                    <div class="rating-item">
+                        <p class="label">Consumo</p>
+                        <p class="value">{review.ratings.fuelConsumption}</p>
+                    </div>
+                    <div class="rating-item">
+                        <p class="label">Desempenho</p>
+                        <p class="value">{review.ratings.performance}</p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="rating-item">
+                        <p class="label">
+                            {review.isCurrentCar ? 'Proprietário a' : 'Proprietário por'}
+                        </p>
+                        <p class="value">{review.ownershipDuration}</p>
+                    </div>
+                    <div class="rating-item">
+                        <p class="label">Carro atual?</p>
+                        <p class="value">{review.isCurrentCar ? 'Sim' : 'Não'}</p>
+                    </div>
+                    <div class="rating-item">
+                        <p class="label">Recomenda</p>
+                        <p class="value">{review.recommendation ? 'Sim' : 'Não'}</p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">
             <div class="votes">
-                <!-- Thumbs up -->
                 <i
                     class="fa fa-thumbs-up fa-1x like {likeClass}"
                     on:click={handleLike}
@@ -150,9 +159,12 @@
             {/if}
         </div>
     </div>
-</main>
+</div>
 
 <style>
+    .card {
+        margin-bottom: 20px;
+    }
     .footer {
         display: flex;
         margin-top: 10px;

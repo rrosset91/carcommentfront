@@ -18,6 +18,9 @@
         dispatch('itemSelected', customEvent);
     }
     $: dataset = data;
+
+    //log dataset console.log everytime it changes
+    $: console.log(dataset);
 </script>
 
 <!-- HTML do componente -->
@@ -27,7 +30,7 @@
     {:else}
         {#each dataset as item, index}
             <div class="col">
-                <button class="btn btn-info	" on:click={() => handleClick(item)}>
+                <button class="btn btn-primary" on:click={() => handleClick(item)}>
                     {#if type === 'Ano'}
                         {item}
                     {:else}
@@ -54,8 +57,7 @@
         margin: 5px;
         flex: 0 0 calc(25% - 10px); /* Define a largura para 25% com margens */
     }
-	button{
-		color: white;
-	}
+    button {
+        color: white;
+    }
 </style>
-

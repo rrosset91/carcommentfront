@@ -34,7 +34,7 @@
 <style>
     .card {
         opacity: 0.9;
-        position: absolute;
+        position: fixed;
         text-align: center;
         font-weight: bold;
         background-color: white;

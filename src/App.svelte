@@ -2,16 +2,14 @@
     import MainButtons from './lib/MainButtons.svelte';
     import Modal from './lib/Modal.svelte';
     import Pagination from './lib/Pagination.svelte';
-	import About from './lib/About.svelte';
+    import About from './lib/About.svelte';
     import ItemSelector from './lib/ItemSelector.svelte';
     import { mockResponses } from './assets/mockResponses.js';
-	import LoginRegistration from './lib/LoginRegistration.svelte';
+    import LoginRegistration from './lib/LoginRegistration.svelte';
     import { fade } from 'svelte/transition';
     import Loader from './lib/Loader.svelte';
     import Result from './Result.svelte';
-    import Navbar from './lib/Navbar.svelte';
     import { onMount } from 'svelte';
-    let displayNavBar = false;
     let showResults = false;
     let mockMode = true;
     let isUserLogged = false;
@@ -36,12 +34,6 @@
     let itemsPerPage = 20;
     let currentPage = 1;
     let lastPage;
-
-    onMount(() => {
-        setTimeout(() => {
-            displayNavBar = true;
-        }, 1500);
-    });
 
     function closeModal() {
         filterValue = '';
@@ -73,9 +65,6 @@
     }
 
     function refreshAppState() {
-        setTimeout(() => {
-            displayNavBar = true;
-        }, 1500);
         showResults = false;
         selectedBrand = {};
         selectedModel = {};
@@ -90,37 +79,23 @@
         selectionType = null;
     }
 
-    function handleOpenModalFromNavbar(e) {
-        switch (e.detail) {
-            case 'about':
-                openAboutModal = true;
-                break;
-            case 'login':
-                openLoginModal = true;
-                break;
-            case 'my-profile':
-                isUserLogged = true;
-                openLoginModal = true;
-                break;
-            default:
-                break;
-        }
-    }
-
     function handleItemSelected(event) {
         const { selectionType, name, id } = event.detail.detail;
         if (selectionType === 'Marca') {
             selectedBrand = { id, name };
             openModal = false;
             if (selectedBrand) modelDisabled = false;
+            currentPage = 1;
         } else if (selectionType === 'Modelo') {
             selectedModel = { id, name };
             openModal = false;
             if (selectedBrand && selectedModel) yearDisabled = false;
+            currentPage = 1;
         } else if (selectionType === 'Ano') {
             selectedYear = parseInt(name);
             openModal = false;
             showDetails = true;
+            currentPage = 1;
         }
     }
 
@@ -197,13 +172,6 @@
 </script>
 
 <main translate="no" transition:fade={{ delay: 150, duration: 600 }}>
-    {#if !isLoading}
-        <Navbar
-            on:openModal={handleOpenModalFromNavbar}
-            on:refreshApp={refreshAppState}
-            display={displayNavBar}
-        />
-    {/if}
     {#if isLoading}
         <Loader />
     {:else if !showResults}
@@ -244,7 +212,6 @@
                         class="btn btn-secondary"
                         on:click={() => {
                             showResults = true;
-                            displayNavBar = !showResults;
                         }}>O que dizem?</button
                     >
                 </div>
@@ -275,19 +242,19 @@
                     slot="footer"
                     style="display: flex; justify-content: space-between; align-items: flex-end; padding: 20px;"
                 >
-                    {#if filteredDataset.length > 0}
+                    {#if pages > 1}
                         <Pagination {pages} on:pagination={handlePaginationNavigation} />
                     {/if}
                 </div>
             </Modal>
             <!-- ABOUT MODAL -->
             <Modal isOpen={openAboutModal} close={closeAboutModal}>
-				<div slot="header">
-					<h3>Sobre</h3>
-				</div>
-				<div slot="content">
-                <About/>
-				</div>
+                <div slot="header">
+                    <h3>Sobre</h3>
+                </div>
+                <div slot="content">
+                    <About />
+                </div>
             </Modal>
             <!-- LOGIN MODAL -->
             <Modal isOpen={openLoginModal} close={closeLoginModal}>
@@ -299,32 +266,51 @@
                     {/if}
                 </div>
                 <div slot="content">
-					<LoginRegistration/>
+                    <LoginRegistration />
                 </div>
             </Modal>
         </div>
     {:else}
-        <Result on:refreshApp={refreshAppState} />
+        <Result
+            on:refreshApp={refreshAppState}
+            on:scroll={(e) => {
+                console.log(e);
+            }}
+        />
     {/if}
 </main>
+
+<!-- To dos:
+	QUANDO CLICAR FORA DO MODAL DO NOVO REVIEW NAO FECHAR O MODAL
+	NAVBAR ARRUMAR OS ITENS PARA FUNCIONAREM, E INCLUSIVE O REFRESH
+	CONTEUDO DA PAGINA INICIAL DEVE FICAR NO MEIO DA TELA
+	MEDIA GERAL NAO ETÁ CALCULANDO
+	CRIAR LOGICA DE ISLOGGEDIN
+	CRIAR BOTAO DE PARA O TOPO
+	
+MUDAR PARA SVELTEKIT====
+implementar localstorage e sessionstorage
+Implementar página meu perfil
+repensar o logo
+RESPONSIVIDADE DOS MODAIS
+-->
 
 <style>
     main {
         height: 100%;
-        overflow: hidden;
     }
     .component {
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        height: 100vh;
+        height: 100%;
     }
 
     .centered-content {
         text-align: center;
         margin-top: 20px;
-		border-radius: 5px;
+        border-radius: 5px;
     }
 
     .details {
@@ -342,16 +328,3 @@
         box-sizing: border-box;
     }
 </style>
-
-
-<!-- To dos:
-	bug do dataset (pagina muda	)
-	paginacao continua aparecendo mesmo quando nao ha resultados
-Revisar estilos da pagina result usando bootstrap
-refazer o navbar usando bootstrap
-isloggedin, implementar corretamente
-implementar localstorage e sessionstorage
-responsividade 
-Implementar página meu perfil
-repensar o logo
--->
