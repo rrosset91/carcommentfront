@@ -26,8 +26,11 @@
             performanceRating) /
         totalConcepts;
     let avaliationPage = 1;
+
     // Function to submit the form
     function submitForm() {
+		avgScore = (comfortRating + repairCostRating + fuelConsumptionRating + reliabilityRating + performanceRating) / totalConcepts;
+
         const reviewData = {
             comment,
             tipsForBuyers,
@@ -42,11 +45,6 @@
             recommends,
         };
 
-        // You can now send this data to your backend to save it in the "reviews" table.
-        console.log('Review Data:', reviewData);
-
-        // Optionally, you can reset the form values after submission.
-        resetForm();
     }
 
     // Function to reset the form
@@ -108,7 +106,7 @@
                     <div class="col-md-2">
                         <div class="form-group">
                             <label for="fuelConsumptionRating"
-                                >{fuel == 'Eléctrico' ? 'Autonomia' : 'Consumo'}</label
+                                >Consumo/Autonomia</label
                             >
                             <input
                                 required
@@ -266,7 +264,7 @@
                         <p><strong>Manutenção:</strong></p>
                         <span class="mr-3"><p class="rating-value">{repairCostRating}</p></span>
 
-                        <p><strong>Consumo:</strong></p>
+                        <p><strong>{fuel == 'Eléctrico' ? 'Autonomia' : 'Consumo'}:</strong></p>
                         <span class="mr-3"><p class="rating-value">{fuelConsumptionRating}</p></span
                         >
                         <p><strong>Fiabilidade:</strong></p>

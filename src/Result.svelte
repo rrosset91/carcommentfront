@@ -5,12 +5,15 @@
     import { fly } from 'svelte/transition';
     import Modal from './lib/Modal.svelte';
     import FloatingButton from './lib/FloatingButton.svelte';
+	let showToTopButton = false;
     let reviewModalOpen = false;
     let currentCar = {
         brand: 'Fiat',
         model: 'Palio',
         year: '2010',
     };
+
+
 
     function newReview(e) {
         openNewCommentModal();
@@ -23,6 +26,20 @@
     function openNewCommentModal() {
         reviewModalOpen = true;
     }
+
+	function toTop() {
+		window.scrollTo(0, 0);
+	}
+
+	function handleScroll() {
+		if (window.scrollY > 250) {
+			showToTopButton = true;
+		} else {
+			showToTopButton = false;
+		}
+	}
+
+	window.addEventListener('scroll', handleScroll);
 </script>
 
 <div id="resultcomponent">
@@ -34,7 +51,7 @@
     </div>
 
     <!-- New Review MODAL -->
-    <Modal flex={false} textAlign="none" isOpen={reviewModalOpen} close={closeNewCommentModal}>
+    <Modal flex={false} textAlign="none" isOpen={reviewModalOpen} allowCloseFromOutClick={false} close={closeNewCommentModal}>
         <div slot="header">
             <h2 style="color: #4900B7">
                 Nova avaliação: {currentCar.brand}
@@ -46,7 +63,9 @@
             <NewReviewForm />
         </div>
     </Modal>
-    <FloatingButton label="🔝" animated="true" />
+	{#if showToTopButton}
+    <FloatingButton on:floatingBtnClick={toTop} label="🔝" animated={true} />
+	{/if}
 </div>
 
 <style>

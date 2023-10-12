@@ -9,7 +9,6 @@
     import { fade } from 'svelte/transition';
     import Loader from './lib/Loader.svelte';
     import Result from './Result.svelte';
-    import { onMount } from 'svelte';
     let showResults = false;
     let mockMode = true;
     let isUserLogged = false;
@@ -281,10 +280,7 @@
 </main>
 
 <!-- To dos:
-	QUANDO CLICAR FORA DO MODAL DO NOVO REVIEW NAO FECHAR O MODAL
 	NAVBAR ARRUMAR OS ITENS PARA FUNCIONAREM, E INCLUSIVE O REFRESH
-	CONTEUDO DA PAGINA INICIAL DEVE FICAR NO MEIO DA TELA
-	MEDIA GERAL NAO ETÁ CALCULANDO
 	CRIAR LOGICA DE ISLOGGEDIN
 	CRIAR BOTAO DE PARA O TOPO
 	
@@ -297,7 +293,7 @@ RESPONSIVIDADE DOS MODAIS
 
 <style>
     main {
-        height: 100%;
+        height: 100vh;
     }
     .component {
         display: flex;

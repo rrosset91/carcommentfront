@@ -25,7 +25,7 @@
                 { concept: 'Conforto', value: 10 },
                 { concept: 'Manutenção ($)', value: 7 },
                 { concept: 'Fiabilidade', value: 8 },
-                { concept: 'Consumo', value: 7 },
+                { concept: 'Consumo/Autonomia', value: 7 },
                 { concept: 'Desempenho', value: 8 },
             ],
         };

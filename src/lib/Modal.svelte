@@ -7,6 +7,7 @@
     export let close = () => {};
     export let isOpen = false;
     export let flex = true;
+	export let allowCloseFromOutClick = true;
     let flexClass = flex ? 'flex' : '';
     let filterValue = '';
     const dispatch = createEventDispatcher();
@@ -26,7 +27,7 @@
 </script>
 
 {#if isOpen}
-    <div on:click={closeModal} class="modal" transition:fade={{ delay: 250, duration: 300 }}>
+    <div on:click={allowCloseFromOutClick ? closeModal : ()=>{return}} class="modal" transition:fade={{ delay: 250, duration: 300 }}>
         <div class="content-wrapper" on:click={(e) => e.stopPropagation()}>
             <div style="text-align:{textAlign}" class="{flexClass} modal-header">
                 <!-- Adicione o ícone de fechar (x) dentro do modal -->

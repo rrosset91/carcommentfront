@@ -44,6 +44,7 @@
         padding: 15px;
         border: 1px solid black;
         z-index: 999;
+		font-size: 1.5rem;
     }
     .top {
         top: 35px;
